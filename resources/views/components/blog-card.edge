@@ -1,0 +1,32 @@
+<div class="lg:flex mb-5">
+    <img class="object-cover w-full h-56 rounded-lg lg:w-64" src="{{ cover_image }}" alt="">
+    <div class="flex flex-col justify-between py-6 lg:mx-6">
+        <a href="{{ route('posts.show', {id: id}) }}"
+            class="text-xl font-semibold text-gray-800 hover:underline dark:text-white ">
+            {{ title }}
+        </a>
+
+        <p>{{ content }}</p>
+
+        <span class="text-sm text-gray-500 dark:text-gray-300">On: {{ date }}</span>
+
+        <div class="flex">
+            @can('PostPolicy.edit', post)
+            <a href="/posts/{{ id }}/edit"
+                class="text-green-700 px-4 bg-green-200 p-2 rounded-lg hover:bg-green-100">Edit</a>
+            @end
+            @can('PostPolicy.delete', post)
+            <form action="{{ route('PostsController.destroy', { id: id }, {
+                            qs: {
+                                _method: 'DELETE'
+                            }
+            }) }}" method="POST">
+
+                {{ csrfField() }}
+                <button type="submit"
+                    class="ml-5 text-red-700 bg-red-200 p-2  rounded-lg hover:bg-red-100">Delete</button>
+            </form>
+            @end
+        </div>
+    </div>
+</div>

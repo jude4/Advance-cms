@@ -1,0 +1,63 @@
+@layout('layouts/app')
+
+@set('title', post.title)
+
+@section('body')
+<section class="my-5">
+    <h1 class="text-3xl py-10 font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white text-center">Latest
+        News
+    </h1>
+
+    <div class="">
+        <img class="object-cover w-full h-56 rounded-lg" src="{{ post.cover_image }}" alt="{{ post.cover_image }}" />
+
+        <div class="py-6 lg:mx-6">
+            <h1 class="text-xl font-semibold text-gray-800 hover:underline dark:text-white ">
+                {{ post.title }}
+            </h1>
+            <p>{{ post.content }}</p>
+
+            <span class="text-sm text-gray-500 dark:text-gray-300">On: {{ post.created_at }}</span>
+        </div>
+        <hr class="my-2" />
+        <div class="comments shadow-md p-4 rounded-lg mt-2">
+            <h3 class="text-lg font-semibold">Comments:</h3>
+            @each(comment in comments)
+
+            <div class="mt-3 main-comment border border-gray-300 p-2 rounded-lg">
+                <p class="text-md font-semibold text-gray-600">{{ comment.user.name }}</p>
+                <p>{{ comment.body }}</p>
+                <div>
+                    <a href="#" class="text-blue-500 text-sm hover:underline">reply</a>
+                </div>
+                {{--  <div class="reply mt-2 border border-gray-300 p-2 rounded-lg">
+                    <p class="text-md font-semibold text-gray-600">Widget</p>
+                    <p>I love this post</p>
+                    <div>
+                        <a href="#" class="text-blue-500 text-sm hover:underline">reply</a>
+                    </div>
+                </div>  --}}
+            </div>
+            @end
+
+            <div class="mt-2">
+                <form action="{{ route('CommentsController.store', {id: post.id}) }}" method="POST">
+                    {{ csrfField() }}
+                    <div>
+                        @!component('components.x_textarea', {
+                        name: 'comment',
+                        placeholder: 'Type here...'
+                        })
+                    </div>
+                    <div>
+                        @!component('components/x_button', {
+                        text: 'Post',
+                        attribute: 'w-full'
+                        })
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+@end

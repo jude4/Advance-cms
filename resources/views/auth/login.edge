@@ -1,0 +1,47 @@
+@layout('layouts.auth')
+
+@set('title', 'Login')
+
+@section('body')
+<div class="container px-6 py-16 mx-auto">
+    <div class="max-w-lg mx-auto shadow-xl py-10">
+        <h1 class="text-3xl text-center font-bold text-gray-800 dark:text-white md:text-4xl">
+            Login</h1>
+        <p class="mt-4 text-center text-xl">Welcome Back</p>
+        <hr class="my-3 w-1/2 mx-auto" />
+
+        <div class="form px-5 mt-5">
+            <form action="{{ route('Auth/LoginController.store') }}" method="POST">
+                {{ csrfField() }}
+                <div>
+                    <label>Email address</label>
+                    <input name="email" class="w-full mt-2 rounded-lg border border-gray-500 p-4" type="email" required />
+
+                    @if (flashMessages.has('errors.email'))
+                    <span class="text-red-500">{{ flashMessages.get('errors.email') }}</span>
+                    @endif
+                </div>
+
+                <div class="mt-5">
+                    <label>Password</label>
+                    <input name="password" class="w-full mt-2 rounded-lg border border-gray-500 p-4" type="password" required />
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <div class="">
+                        <a href="/" class="hover:underline ">Back to home</a>
+                    </div>
+                    <button class="rounded-lg px-4 bg-gray-600 hover:bg-gray-500 text-white p-2 mt-5">Sign in</button>
+                </div>
+
+                <div>
+                    <p>Don't have an account? <a href="/register" class="text-blue-500 hover:underline">sign up</a></p>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+</div>
+@end

@@ -1,0 +1,15 @@
+<div class="container shadow-lg rounded-lg mt-5">
+    @if (flashMessages.has('errors'))
+    <div class="bg-red-200 p-4">
+       
+        <span class="text-red-800 text-lg">There are {{ Object.keys(flashMessages.get('errors')).length }} Errors</span>
+
+    </div>
+    @endif
+    @if(flashMessages.has('success'))
+    <div class="bg-green-200 p-4">
+        <span class="text-green-800 text-lg">{{ flashMessages.get('success') }}</span>
+    </div>
+    @endif
+
+</div>

@@ -1,0 +1,58 @@
+@layout('layouts/app')
+
+@set('title', 'Home page')
+
+@section('body')
+<div class="container px-6 py-16 mx-auto text-center">
+    <div class="max-w-lg mx-auto">
+        <h1 class="text-3xl font-bold text-gray-800 dark:text-white md:text-4xl">Create beautiful website layout
+            with
+            Meraki UI.</h1>
+        <p class="mt-6 text-gray-500 dark:text-gray-300">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Libero similique obcaecati illum mollitia.
+        </p>
+
+        <div
+            class="w-full max-w-sm mx-auto mt-6 bg-transparent border rounded-md dark:border-gray-700 focus-within:border-blue-400 focus-within:ring focus-within:ring-blue-300 dark:focus-within:border-blue-300 focus-within:ring-opacity-40">
+            <form class="flex flex-col md:flex-row">
+                <input type="email" placeholder="Enter your email address"
+                    class="flex-1 h-10 px-4 py-2 m-1 text-gray-700 placeholder-gray-400 bg-transparent border-none appearance-none dark:text-gray-200 focus:outline-none focus:placeholder-transparent focus:ring-0" />
+
+                <button type="button"
+                    class="h-10 px-4 py-2 m-1 text-white transition-colors duration-300 transform bg-blue-500 rounded-md hover:bg-blue-400 focus:outline-none focus:bg-blue-400">
+                    Join Us
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<section class="my-5">
+
+        <h1 class="text-3xl py-10 font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white text-center">Latest
+            News
+        </h1>
+        @if(posts.length < 1) 
+            <p class="text-center text-2xl">
+                No latest post yet
+            </p>
+        @endif
+
+        @each(post in posts)
+            @!component('components.blog-card', {
+            title: post.title,
+            content: post.content,
+            date: post.createdAt,
+            id: post.id,
+            cover_image: post.cover_image,
+            post
+            })
+        @end
+
+        @!component('components.paginate', {
+            model: posts
+        })
+       
+
+</section>
+@end

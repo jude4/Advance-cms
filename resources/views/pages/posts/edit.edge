@@ -1,0 +1,70 @@
+@layout('layouts.app')
+
+@set('title', 'Edit Post')
+
+@section('body')
+<section class="my-5">
+    <div class="">
+        <a href="/posts" class="font-semibold text-xl text-red-500 hover:underline">Go Back </a>
+    </div>
+
+    <div class="shadow-lg mt-4">
+
+        <h1 class="text-3xl py-10 font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white text-center">
+            Update {{ post.title }}
+        </h1>
+
+        <div class="mt-5 py-4 px-5">
+            <form action="{{ route('PostsController.update', {id: post.id}, {
+                qs: {
+                    _method : 'PUT'
+                }
+            })}}" method="POST" enctype="multipart/form-data">
+                {{ csrfField() }}
+                <div class="">
+                    <label>Title</label>
+                    @!component('components.x_input_field', {
+                    type: 'text',
+                    name: 'title',
+                    value: flashMessages.get('title', post.title)
+                    })
+
+                    @if (flashMessages.has('errors.title'))
+                    <span class="text-red-500">{{ flashMessages.get('errors.title') }}</span>
+                    @endif
+
+
+                </div>
+                <div class="mt-4">
+                    <label>Content</label>
+                    @!component('components.x_textarea', {
+                    name: 'content',
+                    value: flashMessages.get('content', post.content)
+                    })
+
+                    @if (flashMessages.has('errors.content'))
+                    <span class="text-red-500">{{ flashMessages.get('errors.content') }}</span>
+                    @endif
+                </div>
+
+                <div class="mt-4">
+                    <label>Cover Image</label>
+                    <input type="file" name="cover_image" class="mt-2 w-full border border-gray-400 p-4 rounded-lg" />
+                    @if (flashMessages.has('errors.cover_image'))
+                    <span class="text-red-500">{{ flashMessages.get('errors.cover_image') }}</span>
+                    @endif
+                </div>
+
+                <div class="mt-4">
+                    @!component('components.x_button', {
+                    text: 'Update',
+                    attribute: 'w-full',
+                    type: 'submit'
+                    })
+                </div>
+            </form>
+        </div>
+    </div>
+
+</section>
+@end

@@ -1,0 +1,36 @@
+@layout('layouts/app')
+
+@set('title', 'Our Blog')
+
+@section('body')
+<section class="my-5">
+    @if (auth.user)
+    <div class="flex justify-end">
+        <a href="/posts/create" class="font-semibold text-xl text-red-500 hover:underline">Add Post + </a>
+    </div>
+    @endif
+    <h1 class="text-3xl py-10 font-semibold text-gray-800 capitalize lg:text-4xl dark:text-white text-center">Latest
+        News
+    </h1>
+    @if(Object.keys(posts).length < 1)
+        <p class="text-center text-2xl">
+            No latest post yet
+        </p>
+    @endif
+    
+    @each(post in posts)
+    @!component('components.blog-card', {
+    title: post.title,
+    content: post.content,
+    date: post.createdAt.toFormat('mm/dd/yyyy'),
+    id: post.id,
+    cover_image: post.cover_image,
+    post
+    })
+    @end
+    @!component('components.paginate', {
+    model: posts
+    })
+  
+</section>
+@end

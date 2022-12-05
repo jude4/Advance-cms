@@ -1,0 +1,11 @@
+{{--  @if (model.length >= model.total)  --}}
+    <div class="mt-4">
+        @each(anchor in model.getUrlsForRange(1, model.lastPage))
+
+        <a href="{{ anchor.url }}" class="bg-gray-700 hover:bg-gray-600 rounded-lg text-white p-3 text-center mx-2">
+            {{ anchor.page }}
+        </a>
+
+        @end
+    </div>
+{{--  @endif  --}}
